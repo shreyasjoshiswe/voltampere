@@ -39,6 +39,11 @@ export const findAvailableChargepoint = (
   return index >= 0 ? O.some(index) : O.none;
 };
 
+export const initializeChargepoints = (count: number): ChargepointState[] =>
+  Array(count)
+    .fill(null)
+    .map(() => ({ tag: 'available' as const }));
+
 export const updateChargepointState = (state: ChargepointState): ChargepointState => {
   if (state.tag === 'charging') {
     const newRemaining = state.remainingSlots - 1;
