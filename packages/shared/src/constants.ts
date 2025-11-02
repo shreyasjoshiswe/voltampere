@@ -1,3 +1,5 @@
+import type { ArrivalProbability } from './types';
+
 export const HOURS_PER_DAY = 24;
 export const DAYS_PER_YEAR = 365;
 
@@ -11,7 +13,7 @@ export const TOTAL_SLOTS = DAYS_PER_YEAR * HOURS_PER_DAY * SLOTS_PER_HOUR;
 
 export const MINUTES_PER_SLOT = 15;
 
-export const ARRIVAL_PROBABILITIES = [
+export const ARRIVAL_PROBABILITIES: readonly ArrivalProbability[] = [
   { hour: 0, probability: 0.0094 },
   { hour: 1, probability: 0.0094 },
   { hour: 2, probability: 0.0094 },
