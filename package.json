@@ -1,0 +1,22 @@
+{
+  "name": "voltampere",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm -r --parallel dev",
+    "clean": "pnpm -r clean",
+    "test": "pnpm -r test",
+    "setup": "pnpm install && cd packages/backend && pnpm prisma:generate",
+    "sim": "cd packages/simulation && pnpm start"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0",
+    "prettier": "^3.3.0"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
