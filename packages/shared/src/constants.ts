@@ -1,4 +1,4 @@
-import type { ArrivalProbability } from './types';
+import type { ArrivalProbability, ChargingDemand } from './types';
 
 export const HOURS_PER_DAY = 24;
 export const DAYS_PER_YEAR = 365;
@@ -40,3 +40,25 @@ export const ARRIVAL_PROBABILITIES: readonly ArrivalProbability[] = [
   { hour: 23, probability: 0.0094 },
 ] as const;
 
+export const CHARGING_DEMAND_DISTRIBUTION: readonly ChargingDemand[] = [
+  // 34.31% don't charge.
+  // NOTE: Could use O.Some and O.None to be more DDD,
+  // but `0` works fine for now.
+  { probability: 0.3431, distanceKm: 0 },
+  { probability: 0.049, distanceKm: 5 },
+  { probability: 0.098, distanceKm: 10 },
+  { probability: 0.1176, distanceKm: 20 },
+  { probability: 0.0882, distanceKm: 30 },
+  { probability: 0.1176, distanceKm: 50 },
+  { probability: 0.1078, distanceKm: 100 },
+  { probability: 0.049, distanceKm: 200 },
+  { probability: 0.0294, distanceKm: 300 },
+] as const;
+
+export const DEFAULT_CONFIG = {
+  numChargepoints: 20,
+  // Required by 2a and 2b so here just in case.
+  arrivalMultiplier: 1.0,
+  carConsumption: 18,
+  chargingPower: 11,
+} as const;
