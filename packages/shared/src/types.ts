@@ -28,3 +28,20 @@ export type SimulationConfig = {
   readonly chargingPower: number;
 };
 
+export type SimulationResults = {
+  readonly totalEnergyKwh: number;
+  readonly theoreticalMaxKw: number;
+  readonly actualMaxKw: number;
+  readonly concurrencyFactor: number;
+  readonly chargingEvents: number;
+  readonly powerProfile?: number[];
+};
+
+export type ChargingEvent = {
+  readonly chargepointId: ChargePointId;
+  readonly startSlot: TimeSlot;
+  readonly endSlot: TimeSlot;
+  readonly energyKwh: Energy;
+  readonly distanceKm: number;
+};
+
