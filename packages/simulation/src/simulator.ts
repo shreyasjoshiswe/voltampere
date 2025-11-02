@@ -24,6 +24,7 @@ export const runSimulation = (config: SimulationConfig): SimulationResults => {
   let totalEnergy = 0;
   let maxPower = 0;
   let chargingEvents = 0;
+  const powerProfile: number[] = new Array(TOTAL_SLOTS);
 
   for (let slot = 0; slot < TOTAL_SLOTS; slot++) {
     for (let idx = 0; idx < states.length; idx++) {
@@ -46,6 +47,7 @@ export const runSimulation = (config: SimulationConfig): SimulationResults => {
     }
 
     const currentPower = calculateTotalPower(states);
+    powerProfile[slot] = currentPower;
     maxPower = Math.max(maxPower, currentPower);
   }
 
@@ -57,6 +59,7 @@ export const runSimulation = (config: SimulationConfig): SimulationResults => {
     actualMaxKw: maxPower,
     concurrencyFactor: maxPower / theoreticalMax,
     chargingEvents,
+    powerProfile,
   };
 };
 
