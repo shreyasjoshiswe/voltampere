@@ -1,4 +1,4 @@
-import type { ArrivalProbability, ChargingDemand } from './types';
+import type { ArrivalProbability, ChargingDemand, SimulationConfig } from './types';
 
 export const HOURS_PER_DAY = 24;
 export const DAYS_PER_YEAR = 365;
@@ -55,7 +55,7 @@ export const CHARGING_DEMAND_DISTRIBUTION: readonly ChargingDemand[] = [
   { probability: 0.0294, distanceKm: 300 },
 ] as const;
 
-export const DEFAULT_CONFIG = {
+export const DEFAULT_CONFIG: SimulationConfig = {
   numChargepoints: 20,
   // Required by 2a and 2b so here just in case.
   arrivalMultiplier: 1.0,
