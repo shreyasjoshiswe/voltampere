@@ -7,12 +7,14 @@ import {
   type TimeSlot,
   slotToHour,
   calculateChargingSlots,
+  SLOTS_PER_HOUR,
 } from '@voltampere/shared';
 
 export const sampleArrivalProbability = (slot: TimeSlot, multiplier: number): boolean => {
   const hour = slotToHour(slot);
   const baseProbability = ARRIVAL_PROBABILITIES[hour].probability;
-  const adjustedProbability = baseProbability * multiplier;
+  const perSlotProbability = baseProbability / SLOTS_PER_HOUR;
+  const adjustedProbability = perSlotProbability * multiplier;
   return Math.random() < adjustedProbability;
 };
 

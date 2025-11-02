@@ -30,21 +30,19 @@ export const runSimulation = (config: SimulationConfig): SimulationResults => {
       states[idx] = updateChargepointState(states[idx]);
     }
 
-    if (sampleArrivalProbability(slot as TimeSlot, config.arrivalMultiplier)) {
-      pipe(
-        findAvailableChargepoint(states),
-        O.map(idx => {
-          const distanceKm = sampleChargingDemand();
+    for (let idx = 0; idx < states.length; idx++) {
+      if (states[idx].tag === 'available' &&
+        sampleArrivalProbability(slot as TimeSlot, config.arrivalMultiplier)) {
+        const distanceKm = sampleChargingDemand();
 
-          // Only charge if distance > 0 (34.31% arrive but don't charge)
-          if (distanceKm > 0) {
-            const energyKwh = kmToKwh(distanceKm, config.carConsumption);
-            states[idx] = createChargingState(energyKwh, config.chargingPower);
-            totalEnergy += energyKwh;
-            chargingEvents++;
-          }
-        })
-      );
+        // Only charge if distance > 0 (34.31% arrive but don't charge)
+        if (distanceKm > 0) {
+          const energyKwh = kmToKwh(distanceKm, config.carConsumption);
+          states[idx] = createChargingState(energyKwh, config.chargingPower);
+          totalEnergy += energyKwh;
+          chargingEvents++;
+        }
+      }
     }
 
     const currentPower = calculateTotalPower(states);
@@ -60,4 +58,26 @@ export const runSimulation = (config: SimulationConfig): SimulationResults => {
     concurrencyFactor: maxPower / theoreticalMax,
     chargingEvents,
   };
+};
+
+export const runConcurrencyAnalysis = (
+  baseConfig: SimulationConfig,
+  minChargepoints: number = 1,
+  maxChargepoints: number = 30
+): Array<{ chargepoints: number; concurrencyFactor: number }> => {
+  const results: Array<{ chargepoints: number; concurrencyFactor: number }> = [];
+
+  for (let n = minChargepoints; n <= maxChargepoints; n++) {
+    const config: SimulationConfig = {
+      ...baseConfig,
+      numChargepoints: n,
+    };
+    const result = runSimulation(config);
+    results.push({
+      chargepoints: n,
+      concurrencyFactor: result.concurrencyFactor,
+    });
+  }
+
+  return results;
 };
