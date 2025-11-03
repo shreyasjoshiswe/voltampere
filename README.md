@@ -2,6 +2,8 @@
 
 A TypeScript monorepo for simulating and analyzing EV charging station power demands and energy consumption.
 
+https://github.com/user-attachments/assets/9786a275-98b3-4115-a5a8-59196c88388b
+
 ## Structure
 
 ```
