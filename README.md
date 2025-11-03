@@ -136,8 +136,38 @@ Also:
 
 ```bash
 pnpm build
-pnpm clean
-pnpm test
+pnpm validate
+```
+
+Validation is stochastic so expect a couple of failed runs:
+
+```
+❯ pnpm validate
+
+> @voltampere/simulation@1.0.0 validate /Users/<username>/Lab/voltampere/packages/simulation
+> tsx src/validate.ts
+
+Pass Theoretical max is correct
+  Expected: 220
+  Actual: 220
+
+Pass Actual max is in expected range
+  Expected: 77-121 kW
+  Actual: 77.00 kW
+
+Pass Concurrency factor is in expected range
+  Expected: 35-55%
+  Actual: 35.0%
+
+Pass Total energy is positive
+  Expected: > 0
+  Actual: 53550.00 kWh
+
+Pass Charging events recorded
+  Expected: > 0
+  Actual: 4770
+
+All validation tests passed!
 ```
 
 ## Config
