@@ -1,5 +1,3 @@
-import { pipe } from 'fp-ts/function';
-import * as O from 'fp-ts/Option';
 import {
   type SimulationConfig,
   type SimulationResults,
@@ -11,7 +9,6 @@ import {
 import {
   sampleArrivalProbability,
   sampleChargingDemand,
-  findAvailableChargepoint,
   updateChargepointState,
   calculateTotalPower,
   createChargingState,
